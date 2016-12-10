@@ -1,0 +1,85 @@
+<html ng-app="myApp">
+    <head>
+        <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
+    </head>
+    
+    <body>
+    
+    <h2>calculator APPLICATION</h2><br>
+
+    <div ng-controller="myController as c1">
+       
+      
+        <input type="text" ng-model="c1.input1"/>
+        <span>{{c1.operator}}</span>
+        <input type="text" ng-model="c1.input2"/>
+        <button ng-click="c1.calculate()">=</button>
+        {{c1.result}}
+        <br>
+        <button ng-click="c1.selectButton('*')">*</button>
+        <button ng-click="c1.selectButton('/')">/</button>
+        <button ng-click="c1.selectButton('+')">+</button>
+        <button ng-click="c1.selectButton('-')">-</button>
+        <hr>
+        
+        Show Names : <input type="checkbox" ng-model="c1.checked">    
+       
+        
+        <div ng-repeat="i in c1.myList">
+            
+            index : {{$index}} ,
+            first : {{$first}} ,
+            middle : {{$middle}} ,
+            last : {{$last}} ,
+            even : {{$even}} ,
+            odd : {{$odd}} ,
+             
+            <p ng-show="c1.checked"> Name : {{i.name}} </p>
+            <p>Age : {{i.age}} </p>
+            
+            <hr>
+        </div>
+        
+
+  
+    </div> 
+        
+        
+         <script>  
+            var module = angular.module("myApp",[])
+            module.controller("myController", main)
+            
+            function main()
+            {
+                 
+                this.myList =[{"name":"yogendra", "age":20},
+                    {"name":"Rohit", "age":20},
+                    {"name":"Rehan", "age":20}]
+                this.result = 0;
+                this.selectButton = function(button)
+                {
+                    this.operator = button;
+                }
+
+                this.calculate = function()
+                {
+                 var a = parseInt(this.input1);
+                 var b = parseInt(this.input2);
+                    console.log(a);
+                   
+                    if(this.operator === '*')
+                        this.result = a*b;
+                    else if(this.operator === '/')
+                        this.result = a/b;
+                    else if(this.operator === '+')
+                        this.result = a+b;
+                    else
+                        this.result = a-b;
+
+                }
+
+            }
+         </script>
+
+    </body>
+</html>

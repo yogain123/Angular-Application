@@ -1,0 +1,71 @@
+<html ng-app = "myApp">
+    <head>
+         <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
+    </head>
+        <body ng-controller = "myController">
+            
+            <h2> TODO APPLICATION</h2>
+            
+            <h4>Add to ToDo</h4>
+            
+            <input type="text" ng-model="name">
+            <button ng-click="add()">add</button>
+            
+            
+            <h4> Your ToDo</h4>
+            <button ng-click="edit()">{{namechange}}</button>
+            
+            <ol>
+            <li ng-repeat="i in result">
+                <span ng-hide="editMode">{{i}}</span>
+                <span ng-hide="editMode"><button ng-click="del($index)">delelte</button></span>
+                <input ng-show="editMode" type="text" ng-model="i">
+            </li>
+            </ol>
+            
+
+
+
+            <script>
+            var app = angular.module("myApp",[]);
+                app.controller("myController",myController);
+                
+                
+                
+                function myController($scope)
+                {
+                    $editMode = false;
+                    $scope.namechange = "edit";
+                    $scope.result = ["java","python"];
+                    $scope.add = function()
+                    {
+                        $scope.result.push($scope.name);
+                        $scope.name = "";
+                    }
+                    
+                    $scope.del = function(index)
+                    {
+                        $scope.result.splice(index,1);
+                    }
+                    
+                    $scope.edit = function()
+                    {
+                        
+                        if($scope.editMode == false)
+                            {
+                            $scope.editMode = true;
+                            $scope.namechange = "done";
+                            }
+                        else
+                            {
+                            $scope.editMode = false;
+                            $scope.namechange = "edit";
+                            }
+                            
+                    }
+                }
+            
+            </script>
+
+        </body>
+</html>
