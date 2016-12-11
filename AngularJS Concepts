@@ -552,3 +552,134 @@ looping with ng-repeat
 
 ng-repeat loops creates multiple copies of html elements that all need to exist concurrenty, at same time
 
+
+
+AngularJS Services
+-------------------
+servies : it can be object , functionalty that can be shareed amoung multiple controller - resueablity
+$http service comes with angular to communited to backend
+
+
+download Node.js
+download http server // from cmd using :: npm install http-server -g
+download json   // from cmd :: npm install json-server -g   // it creates fake REstApis
+
+fix node permission issues  // use sudo before npm,,, sudo npm install http-server -gte
+
+building the contact app
+-------------------------
+
+let we have a header and footer controller alag alag
+<div ng-controller="headerController">
+ ...
+</div>
+
+<div ng-controller="footerController">
+ ...
+</div>
+
+in script.js
+
+var app = angular.module("myApp",[]);
+app.controller("myController",myController)
+app.controller("headerController",headerController);
+app.controller("footerController",footerController);
+
+app.value("serviceName","application name is ABC");    // here value is one of the type of service and its name is serviceName
+
+//basicaly what service does (here value service) , it returns what is there in 2nd parameter, and u can use the name of that 
+service to use that value where u want ,it is used in both the controller, u can make function , object ,anything what you u want that service to return
+app.value("objectService",{
+			  "name":"yogendra",
+			  "age":23
+			})
+			
+app.constant(....) // its also a service which is almost same as value service
+
+ app.value("loggingValue",function()
+                     {
+                console.log("Hello");
+            })
+
+
+function myController($scope)
+	{
+	contact = [
+	{"gender":"male",
+	"name":{
+	"firstname : "yogendra"
+	"lastname" : "saxena"}},
+	}},
+	{...}
+function myController($scope,serviceName,objectService)
+	{
+	$scope.name = serviceName;
+	$scope.name = objectService.name;
+	}
+function myController($scope,serviceName,objectService,loggingValue)
+	{
+	$scope.name = serviceName;
+	$scope.name = objectService.name;
+	loggingValue();
+	}
+	
+	
+OTHER SERVICE IS FACTORY SERVICE
+--------------------------------
+it same as value but in this 2nd para is always a function which always return which u wamt to set in that service
+
+app.factoty("factroyService",function()
+				{
+				return {       //returning object
+			  "name":"yogendra",
+			  "age":23
+			}
+				})
+				
+the benefit of factory over value is that u can injext your own any logic inside function and return it.
+
+
+NEXT SERVICE IS service SERVICE
+--------------------------------
+
+it is same as factory service but in this we don't have to define retunn type , it is called as a constructor
+
+app.factoty("factroyService" , prepeare());
+
+function prepare()
+	{
+	////// var this = {};     ////-->it add this line , we don't have to write
+	this.name = "yogendra";
+	this.author = "Guru";
+	this.date = new Date().toDateString();
+	//////return this;     ////-->it add this line , we don't have to write   // returing object
+	}
+	
+	
+function myController(factroyService)
+	{
+	$scope.name = factroyService.name;
+	}
+	
+	
+	
+	
+In factory u can return anything, but service u are force to return an object
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
