@@ -1,0 +1,76 @@
+<html ng-app="myApp">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+    </head>
+    
+    <body>
+        <header ng-controller="headerCtrl">
+            {{appName}}
+            {{serviceName}}
+            {{factoryName}}
+        
+        </header>
+        
+        <footer ng-controller="footerCtrl">
+            {{appName}}
+            {{serviceName}}
+            {{factoryName}}
+            {{serviceServiceName}}
+        
+        </footer>
+        
+        
+        
+        
+        <script>
+            
+            var app = angular.module("myApp",[]);
+            app.controller("headerCtrl",headerCtrl);
+            app.controller("footerCtrl",footerCtrl);
+            app.value("serviceName","Service Applicaton");
+            app.value("objectService",{
+			  "name":"ABC Service",
+			  "age":23
+			});
+            
+            app.value("loggingValue",function()
+                     {
+                console.log("Hello");
+            });
+            
+            app.factory("factoryService",function()
+                       {
+                return {
+			  "name":"ABC Factory",
+			  "age":23
+			           }});
+            
+            app.service("serviceService",prepare);
+            
+            
+            function prepare()
+            {
+                this.name = "GURU";
+                this.date = new Date().toDateString();
+            }
+            
+            
+            
+            function headerCtrl($scope,serviceName,objectService)
+            {
+                $scope.appName = serviceName;
+                $scope.serviceName = objectService.name;   // calling service
+            }
+            
+             function footerCtrl($scope,serviceName,objectService,loggingValue,factoryService,serviceService)
+            {
+                $scope.appName = serviceName;
+                $scope.serviceName = objectService.name;   //calling service
+                loggingValue();
+                $scope.factoryName = factoryService.name;
+                $scope.serviceServiceName = serviceService.name;
+            }
+        
+        </script>
+    </body>
+</html>
